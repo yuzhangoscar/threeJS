@@ -3,10 +3,12 @@ const canvas = document.querySelector(".webgl");
 const scene = new THREE.Scene();
 
 const boxGeometry = new THREE.BoxGeometry(1, 1, 1); 
-const boxMaterial = new THREE.MeshBasicMaterial({color: "lightblue"});
+const boxMaterial = new THREE.MeshBasicMaterial({color: "lightblue", wireframe: true});
 const boxMesh = new THREE.Mesh(boxGeometry, boxMaterial);
+const axeHelper = new THREE.AxesHelper();
 let cameraPosition = new THREE.Vector3();
 scene.add(boxMesh);
+scene.add(axeHelper);
 
 const cameraSize = {
     width: 800,
@@ -33,16 +35,16 @@ function onDocumentKeyDown(event) {
     let keyCode = event.which;
     switch (keyCode) {
         case 37: // left arrow
-            camera.position.x += 0.1; // rotate camera left
+            camera.rotation.x += 0.1; // rotate camera left
             break;
         case 38: // up arrow
-            camera.position.z += 0.1
+            camera.rotation.z += 0.1
             break;
         case 39: // right arrow
-            camera.position.x -= 0.1
+            camera.rotation.x -= 0.1
             break;
         case 40: // down arrow
-            camera.position.y += 0.1
+            camera.rotation.y += 0.1
             break;
     }
 }
