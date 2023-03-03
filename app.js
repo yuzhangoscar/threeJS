@@ -37,6 +37,7 @@ tick();
 window.addEventListener("mousemove", (event) => {
     camera.position.x = event.clientX/cameraSize.width;
     camera.position.y = -1*event.clientY/cameraSize.height;
+    camera.position.z = event.clientX/cameraSize.width*0.01;
 });
 
 function onDocumentKeyDown(event) {
