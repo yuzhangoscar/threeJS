@@ -6,6 +6,7 @@ const boxGeometry = new THREE.BoxGeometry(1, 1, 1);
 const boxMaterial = new THREE.MeshBasicMaterial({color: "lightblue", wireframe: true});
 const boxMesh = new THREE.Mesh(boxGeometry, boxMaterial);
 const axeHelper = new THREE.AxesHelper();
+const clock = new THREE.Clock();
 let cameraPosition = new THREE.Vector3();
 scene.add(boxMesh);
 scene.add(axeHelper);
@@ -16,8 +17,6 @@ const cameraSize = {
 };
 const camera = new THREE.PerspectiveCamera(75, cameraSize.width/cameraSize.height);
 camera.position.z = 3;
-camera.position.x = 1;
-camera.position.y = 1;
 scene.add(camera);
 
 document.addEventListener('keydown', onDocumentKeyDown, false);
@@ -27,9 +26,18 @@ const renderer = new THREE.WebGLRenderer({
 });
 renderer.setSize(cameraSize.width, cameraSize.height);
 
-setInterval(() => {
+function tick() {
+    const elapsedTime = clock.getElapsedTime();
     renderer.render(scene, camera);
-},10);
+    window.requestAnimationFrame(tick);
+}
+
+tick();
+
+window.addEventListener("mousemove", (event) => {
+    camera.position.x = event.clientX/cameraSize.width;
+    camera.position.y = -1*event.clientY/cameraSize.height;
+});
 
 function onDocumentKeyDown(event) {
     let keyCode = event.which;
