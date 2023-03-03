@@ -15,11 +15,12 @@ const cameraSize = {
     width: 800,
     height: 600
 };
-const camera = new THREE.PerspectiveCamera(75, cameraSize.width/cameraSize.height);
-camera.position.z = 3;
+const cursor = {
+    x: 0,
+    y: 0
+};
+const camera = new THREE.PerspectiveCamera(75, cameraSize.width/cameraSize.height, 0.1, 1000);
 scene.add(camera);
-
-document.addEventListener('keydown', onDocumentKeyDown, false);
 
 const renderer = new THREE.WebGLRenderer({
     canvas: canvas
@@ -28,6 +29,12 @@ renderer.setSize(cameraSize.width, cameraSize.height);
 
 function tick() {
     const elapsedTime = clock.getElapsedTime();
+
+    camera.position.z = Math.cos(cursor.x * Math.PI * 3);
+    camera.position.x = Math.sin(cursor.x * Math.PI * 3);
+    //camera.position.y = -1*(event.clientY/cameraSize.height-0.5)*2;
+    camera.lookAt(boxMesh.position);
+
     renderer.render(scene, camera);
     window.requestAnimationFrame(tick);
 }
@@ -35,25 +42,6 @@ function tick() {
 tick();
 
 window.addEventListener("mousemove", (event) => {
-    camera.position.x = event.clientX/cameraSize.width;
-    camera.position.y = -1*event.clientY/cameraSize.height;
-    camera.position.z = event.clientX/cameraSize.width*0.01;
+    cursor.x = event.clientX / cameraSize.width - 0.5;
+    cursor.y = -1* (event.clientY / cameraSize.height - 0.5);
 });
-
-function onDocumentKeyDown(event) {
-    let keyCode = event.which;
-    switch (keyCode) {
-        case 37: // left arrow
-            camera.rotation.x += 0.1; // rotate camera left
-            break;
-        case 38: // up arrow
-            camera.rotation.z += 0.1
-            break;
-        case 39: // right arrow
-            camera.rotation.x -= 0.1
-            break;
-        case 40: // down arrow
-            camera.rotation.y += 0.1
-            break;
-    }
-}
