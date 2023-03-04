@@ -14,7 +14,7 @@ scene.add(axeHelper);
 
 const cameraSize = {
     width: window.innerWidth,
-    height: window.innerHeight
+    height: window.innerHeight //
 };
 const cursor = {
     x: 0,
