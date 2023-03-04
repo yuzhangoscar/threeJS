@@ -1,0 +1,26 @@
+{
+  "name": "threejs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "npx vite"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yuzhangoscar/threeJS.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yuzhangoscar/threeJS/issues"
+  },
+  "homepage": "https://github.com/yuzhangoscar/threeJS#readme",
+  "dependencies": {
+    "three": "^0.150.1"
+  },
+  "devDependencies": {
+    "vite": "^4.1.4"
+  }
+}
