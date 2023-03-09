@@ -3,14 +3,15 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
 const canvas = document.querySelector(".webgl");
 const scene = new THREE.Scene();
-
-const positionsArray = new Float32Array([
-    0,0,0,
-    0,1,0,
-    1,0,0
-]);
-const positionAttribute = new THREE.BufferAttribute(positionsArray, 3);
 const geometry = new THREE.BufferGeometry();
+
+const count = 50;
+const positionsArray = new Float32Array(count * 3 * 3);
+for (let i = 0; i < count * 3 * 3; i++) {
+    positionsArray[i] = Math.random();
+}
+const positionAttribute = new THREE.BufferAttribute(positionsArray, 3);
+
 geometry.setAttribute("position", positionAttribute);
 
 
