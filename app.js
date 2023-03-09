@@ -4,12 +4,21 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 const canvas = document.querySelector(".webgl");
 const scene = new THREE.Scene();
 
-const boxGeometry = new THREE.BoxGeometry(1, 1, 1); 
-const boxMaterial = new THREE.MeshBasicMaterial({color: "lightblue", wireframe: true});
-const boxMesh = new THREE.Mesh(boxGeometry, boxMaterial);
+const positionsArray = new Float32Array([
+    0,0,0,
+    0,1,0,
+    1,0,0
+]);
+const positionAttribute = new THREE.BufferAttribute(positionsArray, 3);
+const geometry = new THREE.BufferGeometry();
+geometry.setAttribute("position", positionAttribute);
+
+
+const material = new THREE.MeshBasicMaterial({color: "lightblue", wireframe: true});
+const mesh = new THREE.Mesh(geometry, material);
 const axeHelper = new THREE.AxesHelper();
 const clock = new THREE.Clock();
-scene.add(boxMesh);
+scene.add(mesh);
 scene.add(axeHelper);
 
 const cameraSize = {
@@ -22,7 +31,7 @@ const cursor = {
 };
 const camera = new THREE.PerspectiveCamera(90, cameraSize.width/cameraSize.height, 0.1, 1000);
 camera.position.z = 3;
-camera.lookAt(boxMesh.position);
+camera.lookAt(mesh.position);
 scene.add(camera);
 const controls = new OrbitControls(camera, canvas);
 
