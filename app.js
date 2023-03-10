@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import * as dat from "lil-gui";
+import gsap from "gsap";
 
 const gui = new dat.GUI();
 
@@ -26,6 +27,11 @@ scene.add(mesh);
 scene.add(axeHelper);
 
 // Debug
+const parameters = {
+    spin: () => {
+        gsap.to(mesh.rotation, {duration: 1, y : mesh.rotation.y + 10});
+    }
+};
 gui.add(mesh.position, 'y')
     .min(-3)
     .max(3)
@@ -33,6 +39,9 @@ gui.add(mesh.position, 'y')
     .name("elevation");
 
 gui.add(mesh, "visible");
+gui.add(material, "wireframe");
+gui.addColor(material, "color");
+gui.add(parameters, "spin");
 
 const cameraSize = {
     width: window.innerWidth,
