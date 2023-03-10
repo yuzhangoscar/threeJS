@@ -2,6 +2,14 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import * as dat from "lil-gui";
 import gsap from "gsap";
+import imageSource from "./color.jpg"
+
+//load an image
+const image = new Image();
+image.onload = () => {
+    console.log("loaded");
+};
+image.src = imageSource;
 
 const gui = new dat.GUI();
 
