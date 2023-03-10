@@ -6,8 +6,10 @@ import imageSource from "./color.jpg"
 
 //load an image
 const image = new Image();
+const texture = new THREE.Texture(image);
+
 image.onload = () => {
-    console.log("loaded");
+    texture.needsUpdate = true;
 };
 image.src = imageSource;
 
@@ -15,19 +17,9 @@ const gui = new dat.GUI();
 
 const canvas = document.querySelector(".webgl");
 const scene = new THREE.Scene();
-const geometry = new THREE.BufferGeometry();
+const geometry = new THREE.BoxBufferGeometry(1, 1, 1);
 
-const count = 2;
-const positionsArray = new Float32Array(count * 3 * 3);
-for (let i = 0; i < count * 3 * 3; i++) {
-    positionsArray[i] = (Math.random()-0.5);
-}
-const positionAttribute = new THREE.BufferAttribute(positionsArray, 3);
-
-geometry.setAttribute("position", positionAttribute);
-
-
-const material = new THREE.MeshBasicMaterial({color: "lightblue", wireframe: true});
+const material = new THREE.MeshBasicMaterial({map: texture});
 const mesh = new THREE.Mesh(geometry, material);
 const axeHelper = new THREE.AxesHelper();
 const clock = new THREE.Clock();
