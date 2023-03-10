@@ -1,14 +1,17 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import * as dat from "lil-gui";
+
+const gui = new dat.GUI();
 
 const canvas = document.querySelector(".webgl");
 const scene = new THREE.Scene();
 const geometry = new THREE.BufferGeometry();
 
-const count = 50;
+const count = 2;
 const positionsArray = new Float32Array(count * 3 * 3);
 for (let i = 0; i < count * 3 * 3; i++) {
-    positionsArray[i] = Math.random();
+    positionsArray[i] = (Math.random()-0.5);
 }
 const positionAttribute = new THREE.BufferAttribute(positionsArray, 3);
 
@@ -21,6 +24,15 @@ const axeHelper = new THREE.AxesHelper();
 const clock = new THREE.Clock();
 scene.add(mesh);
 scene.add(axeHelper);
+
+// Debug
+gui.add(mesh.position, 'y')
+    .min(-3)
+    .max(3)
+    .step(0.01)
+    .name("elevation");
+
+gui.add(mesh, "visible");
 
 const cameraSize = {
     width: window.innerWidth,
